@@ -7,3 +7,4 @@ def index(request): #HttpRequestクラスの引数requestを返すindex関数の
     result = 'you typed: "' + msg + '" .' #変数resultに指定の文字列とパラメーターに記述した値を代入
   else:
     result = 'Please send msg parameter' #msgパラメーターを送信する旨を変数resultに代入
+  return HttpResponse(result) #戻り値としてHttpResponseインスタンスの引数に変数resultを返す
