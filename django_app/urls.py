@@ -18,5 +18,5 @@ from django.urls import path, include
 
 urlpatterns = [ #アドレスをリスト化している
     path('admin/', admin.site.urls),
-    path('hello/', include('hello .urls')), #helloフォルダ内のurls.pyが読み込まれ、'hello'のアドレスに割り当てられる→hello/以降のアドレスにはhello/urls.pyのurlpatternsリストに記述された内容が設定された
+    path('hello/', include('hello.urls')), #helloフォルダ内のurls.pyが読み込まれ、'hello'のアドレスに割り当てられる→hello/以降のアドレスにはhello/urls.pyのurlpatternsリストに記述された内容が設定された
 ]
