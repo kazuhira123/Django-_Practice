@@ -15,7 +15,9 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
+import hello.views as hello #helloフォルダ内のviews.pyモジュールをhelloという名前でimportする
 
-urlpatterns = [
+urlpatterns = [ #アドレスをリスト化している
     path('admin/', admin.site.urls),
+    path('hello/', hello.index), #hello/というURLにアクセスすると、helloモジュール内のindex関数を実行する
 ]
