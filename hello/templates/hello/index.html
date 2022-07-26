@@ -2,9 +2,9 @@
 <html lang="ja"> <!--このhtml要素内でしようされる言語は日本語だということ,ブラウザに言語を認識させるイメージ-->
 <head>
   <meta charset="utf-8"> <!--メタ要素というページに関する様々な情報を記述する要素、今回はutf-8という文字コードに設定している-->
-  <title>hello</title>
+  <title>{{title}}</title> <!--テンプレートで使用できる変数にtitleを追加-->
 </head>
 <body>
-  <h1>hello/index</h1>
-  <p>This is sample page</p>
+  <h1>{{title}}</h1>
+  <p>{{msg}}</p> <!--上記と同じく、変数msgを追加-->
 </html>
