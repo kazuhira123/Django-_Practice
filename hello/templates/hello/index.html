@@ -4,11 +4,12 @@
 <head>
   <meta charset="utf-8"> <!--メタ要素というページに関する様々な情報を記述する要素、今回はutf-8という文字コードに設定している-->
   <title>{{title}}</title> <!--テンプレートで使用できる変数にtitleを追加-->
-  <link rel="stylesheet" type="text/css"
-    href="{% static 'hello/css/style.css'%}" /> <!--linkタグを作成し、rel属性とtype属性にcssとリンクされていることを、href属性にstaticフォルダ内のstyle.cssのパスを指定-->
+  <link rel="stylesheet"
+    href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+    crossorigin="anonymous"><!--リンク先にBootstrapのサイトを指定しスタイルシートを読み込み、オリジン間リクエストが実行されるが信用情報(Cookieなど)は送信されないように設定-->
 </head>
 <body>
-  <h1>{{title}}</h1>
-  <p>{{msg}}</p> <!--上記と同じく、変数msgを追加-->
-  <p><a href="{% url goto %}">{{goto}}</a ></p><!--インライン要素のhref属性でリンク先をテンプレートの変数gotoに指定-->
+  <h1 class="display-4 text-primary mb-4">{{title}}</h1>
+  <p class="h5">{{msg}}</p> <!--上記と同じく、変数msgを追加-->
+  <p class="h6"><a href="{% url goto %}">{{goto}}</a ></p><!--インライン要素のhref属性でリンク先をテンプレートの変数gotoに指定-->
 </html>
