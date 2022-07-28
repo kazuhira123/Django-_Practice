@@ -1,0 +1,19 @@
+body {
+  color: gray;
+  font-size: 16pt;
+}
+h1 {
+  color: red;
+  opacity: 0.2; /*要素の不透明度を0.2にする*/
+  font-size: 60pt;
+  margin-top: -20px; /*要素の上側のマージン領域を-20pxにする*/
+  margin-bottom: 0px;
+  text-align: right; /*ブロック要素または表セルボックスの水平方向の配置を右寄りにする*/
+}
+p {
+  margin: 10px;
+}
+a {
+  color: blue;
+  text-decoration: none; /*一括指定プロパティで、テキストの装飾的な線の表示を無しとしている*/
+}
