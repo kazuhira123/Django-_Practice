@@ -8,7 +8,7 @@
     href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
     crossorigin="anonymous"><!--リンク先にBootstrapのサイトを指定しスタイルシートを読み込み、オリジン間リクエストが実行されるが信用情報(Cookieなど)は送信されないように設定-->
 </head>
-<body class="container">
+<body class="container"> <!--Bootstrapのクラスを読み込む-->
   <h1 class="display-4 text-primary mb-4">{{title}}</h1>
   <p class="h5">{{msg}}</p> <!--上記と同じく、変数msgを追加-->
   <p class="h6"><a href="{% url goto %}">{{goto}}</a ></p><!--インライン要素のhref属性でリンク先をテンプレートの変数gotoに指定-->
