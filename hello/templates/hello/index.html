@@ -1,8 +1,11 @@
+{% load static %} <!--静的ファイルをロードする-->
 <!doctype html> <!--DOCTYPE宣言と呼ばれる文書タイプがhtmlであることを示す-->
 <html lang="ja"> <!--このhtml要素内でしようされる言語は日本語だということ,ブラウザに言語を認識させるイメージ-->
 <head>
   <meta charset="utf-8"> <!--メタ要素というページに関する様々な情報を記述する要素、今回はutf-8という文字コードに設定している-->
   <title>{{title}}</title> <!--テンプレートで使用できる変数にtitleを追加-->
+  <link rel="stylesheet" type="text/css"
+    href="{% static 'hello/css/style.css'%}" /> <!--linkタグを作成し、rel属性とtype属性にcssとリンクされていることを、href属性にstaticフォルダ内のstyle.cssのパスを指定-->
 </head>
 <body>
   <h1>{{title}}</h1>
