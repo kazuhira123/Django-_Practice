@@ -4,17 +4,20 @@
 <head>
   <meta charset="utf-8"> <!--メタ要素というページに関する様々な情報を記述する要素、今回はutf-8という文字コードに設定している-->
   <title>{{title}}</title> <!--テンプレートで使用できる変数にtitleを追加-->
-  <link rel="stylesheet" type="text/css"
-    href="{% static 'hello/css/style.css' %}" />
+  <link rel="stylesheet"
+    href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+    crossorigin="anonymous">
 </head>
-<body>
-  <h1>{{title}}</h1>
-  <p>{{msg}}</p> <!--上記と同じく、変数msgを追加-->
+<body class="container">
+  <h1 class="display-4 text-primary">{{title}}</h1>
+  <p class="h5 mt-4">{{msg}}</p> <!--上記と同じく、変数msgを追加-->
   <form action="{% url 'form' %}" method="post"> <!--formタグのaction属性にフォームによって送信された情報を処理するプログラムのurlを指定、method属性でhttpメソッドをpostメソッドに指定-->
     {% csrf_token %} <!--CSRF(リクエスト偽造)対策用のトークンを追加、これで「正しくフォームから送信されたアクセスかどうかを判定できる」-->
-    <label  for="msg">message: </label> <!--labelタグにフォームの項目名と構成部品を関連づける。ここではfor属性にmsgと指定しid属性と関連づける-->
-    <input id="msg" type="text" name="msg"> <!--入力欄要素であるinputタグのid属性にfor属性と同じmsgと指定することで関連づけた。さらにtype属性を規定のtextとした。-->
-    <input type="submit" value="click"> <!--inputタグのtype属性をsubmitにすることで送信ボタンを作成、value属性をclickに指定-->
+    <div class="form-group"> <!--divタグで囲んだ他のタグをフォーム構造体として扱うform-groupクラスに指定-->
+      <label  for="msg">message: </label> <!--labelタグにフォームの項目名と構成部品を関連づける。ここではfor属性にmsgと指定しid属性と関連づける-->
+      <input id="msg" type="text" class="form-control" name="msg"> <!--入力欄要素であるinputタグのid属性にfor属性と同じmsgと指定することで関連づけた。さらにtype属性を規定のtextとした。-->
+    </div>
+    <input class="btn btn-primary" type="submit" value="click"> <!--inputタグのtype属性をsubmitにすることで送信ボタンを作成、value属性をclickに指定-->
   </form>
 </body>
 </html>
