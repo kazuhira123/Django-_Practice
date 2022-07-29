@@ -16,3 +16,11 @@ def next(request): #テンプレートに新規作成したページ用のビュ
     'goto':'index',
   }
   return render(request, 'hello/index.html', params)
+
+def form(request): #フォーム用のビュー関数formを定義
+  msg = request.POST['msg'] #フォームの作成時のinputタグのname属性に指定したmsgの値をフォームから送信された値を取り出すrequest.POST[]で取り出し、変数msgに代入
+  params = {
+    'title':'Hello/Form',
+    'msg':'こんにちは、' + msg + 'さん。',
+  }
+  return render(request, 'hello/index.html', params)
