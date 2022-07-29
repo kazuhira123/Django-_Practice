@@ -3,6 +3,4 @@ from . import views #カレントディレクトリのviewsモジュールのimp
 
 urlpatterns = [
     path('', views.index, name='index'), #/hello/のアドレスでindexにアクセスできる形に戻した
-    path('next', views.next, name='next'), #新規ページ用のビュー関数のアドレスhello/nextの設定
-    path('form', views.form, name='form'), #フォーム用のビュー関数のアドレスにhello/formを設定
-]
+  ]
