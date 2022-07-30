@@ -13,12 +13,8 @@
   <p class="h5 mt-4">{{massage|safe}}</p> <!--|safeによってmassageにエスケープ処理を行わず、そのままhtmlタグとして利用している。-->
   <form action="{% url 'index' %}" method="post"> <!--formタグのaction属性にフォームによって送信された情報を処理するプログラムのurlを指定、method属性でhttpメソッドをpostメソッドに指定-->
     {% csrf_token %} <!--CSRF(リクエスト偽造)対策用のトークンを追加、これで「正しくフォームから送信されたアクセスかどうかを判定できる」-->
-    <table>
-      {{ form.as_table }} <!--呼び出したFormクラスのフィールドをtrタグとtdタグでくくってまとめる-->
-      <tr><td></td><td>
-        <input class="btn btn-primary" type="submit" value="click"> <!--inputタグのtype属性をsubmitにすることで送信ボタンを作成、value属性をclickに指定-->
-      </td></tr>
-    </table>
+    {{ form.as_p }} <!--呼び出したFormクラスのフィールドをpタグでくくってBootstrapでのデザインを使う-->
+    <input type="submit" class="btn btn-primary my-2"  value="click"> <!--inputタグのtype属性をsubmitにすることで送信ボタンを作成、value属性をclickに指定-->
   </form>
 </body>
 </html>
