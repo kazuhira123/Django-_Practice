@@ -1,6 +1,6 @@
-from django.urls import path #django.urlsからpathモジュールのimport
-from . import views #カレントディレクトリのviewsモジュールのimport
+from django.conf.urls import url #django.conf.urlsからurlモジュールのimport
+from .views import HelloView #HelloViewクラスをimportする
 
 urlpatterns = [
-    path('', views.index, name='index'), #/hello/のアドレスでindexにアクセスできる形に戻した
+    url(r'', HelloView.as_view(), name='index'), #r''で全ての文字列にマッチするワイルドカードとしてアドレスを扱う。
   ]
