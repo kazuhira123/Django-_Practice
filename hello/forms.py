@@ -9,3 +9,4 @@ class HelloForm(forms.Form): #HelloFormクラスにforms.Formクラスを継承
   age = forms.IntegerField(label='age', \
     widget=forms.NumberInput(attrs={'class':'form-control'})) #整数の値を入力するためのIntegerFiwldを設定
   check = forms.BooleanField(label='Checkbox', required=False) #チェックボックス用のクラスBooleanFieldを元にcheckインスタンスを生成
+  null_check = forms.NullBooleanField(label='null_check')
