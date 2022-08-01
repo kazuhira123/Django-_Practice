@@ -9,16 +9,15 @@ class HelloView(TemplateView):
   def __init__(self):
     self.params = {
       'title':'Hello', #テンプレート側で変数として定義した名前をキーとする辞書を作成
-      'massage':'your data',
-      'result':None,
       'form':HelloForm(),
+      'result':None,
     }
 
   def get(self, request): #GETメソッドで値が渡された時の処理
     return render(request, 'hello/index.html', self.params) #レンダリング時にself.paramsを戻り値として返すだけの処理
 
   def post(self, request): #POSTメソッドで値が渡された時の処理
-    chk = request.POST['check']
-    self.params['result'] = 'you selected: "' + chk + '"'
     self.params['form'] = HelloForm(request.POST)
+    ch = request.POST['choice']
+    self.params['result'] = 'you selected: "' + ch + '"'
     return render(request, 'hello/index.html', self.params)
