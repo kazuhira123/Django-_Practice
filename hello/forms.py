@@ -7,5 +7,5 @@ class HelloForm(forms.Form): #HelloFormクラスにforms.Formクラスを継承
     ('two', 'item 2'),
     ('three', 'item 3')
   ]
-  choice = forms.ChoiceField(label='Choice',\
-    choices=data, widget=forms.Select(attrs={'size':3})) #引数choicesの値にdataを代入したchoiceインスタンスを生成、さらにwidget引数にSelectのインスタンスを作成して選択リストを作成できるようにした
+  choice = forms.MultipleChoiceField(label='radio', choices=data, \
+    widget=forms.SelectMultiple(attrs={'size':3})) #引数choicesの値にdataを代入したchoiceインスタンスを生成、さらにwidget引数にSelectのインスタンスを作成して選択リストを作成できるようにした

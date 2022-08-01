@@ -18,6 +18,6 @@ class HelloView(TemplateView):
 
   def post(self, request): #POSTメソッドで値が渡された時の処理
     self.params['form'] = HelloForm(request.POST)
-    ch = request.POST['choice']
-    self.params['result'] = 'you selected: "' + ch + '"'
+    ch = request.POST.getlist('choice') #変数chにリストの値を取得するgetlistメソッドで取得した値を代入
+    self.params['result'] = 'you selected: "' + str(ch) + '"' #リストから取得した値を文字列型のデータに変換して表示するようにresultキーの要素を更新
     return render(request, 'hello/index.html', self.params)
