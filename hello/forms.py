@@ -7,4 +7,5 @@ class HelloForm(forms.Form): #HelloFormクラスにforms.Formクラスを継承
     ('two', 'item 2'),
     ('three', 'item 3')
   ]
-  choice = forms.ChoiceField(label='Choice', choices=data) #引数choicesの値にdataを代入したchoiceインスタンスを生成
+  choice = forms.ChoiceField(label='Choice',\
+    choices=data, widget=forms.RadioSelect) #引数choicesの値にdataを代入したchoiceインスタンスを生成、さらにwidget引数にRadioSelectのインスタンスを作成してラジオボタンを作成できるようにした
