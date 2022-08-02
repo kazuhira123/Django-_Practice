@@ -1,3 +1,4 @@
 from django.contrib import admin
+from .models import Friend #Friendモデルのimport
 
-# Register your models here.
+admin.site.register(Friend) #Friendモデルを管理ツールに登録する

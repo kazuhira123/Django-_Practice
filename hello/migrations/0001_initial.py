@@ -10,8 +10,8 @@ class Migration(migrations.Migration):
     dependencies = [
     ]
 
-    operations = [
-        migrations.CreateModel(
+    operations = [ #実行する処理の内容をまとめた変数
+        migrations.CreateModel( #モデルを作成するためのクラス
             name='Friend',
             fields=[
                 ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),

@@ -9,5 +9,5 @@ class Friend(models.Model): #Friendクラスの定義、下記に定義された
   birthday = models.DateField()
 
   def __str__(self): #テキストの値を返す__str__メソッドを定義、これによってFriendクラスのインスタンスを{{}}で表示可能に
-      return '<Friend:id=' + str(self.id) + ',' + self.name + '(' + str(self.age) + ')>'
+      return '<Friend:id=' + str(self.id) + ',' + self.name + '(' + str(self.age) + ')>' #レコードを追加したときの管理ツールでの表示される値を返す
 
