@@ -19,7 +19,7 @@
       <th>AGE</th>
       <th>BIRTHDAY</th>
     </tr>
-  {% for item in date %} <!--テンプレートタグ{%%}で囲むことでpythonのfor文と同じ処理を実行-->
+  {% for item in data %} <!--テンプレートタグで囲むことでpythonのfor文と同じ処理を実行-->
     <tr>
       <td>{{item.id}}</td> <!--テーブルのレコードに自動的に追加されたプライマリキー(レコードを識別する値)を表示-->
       <td>{{item.name}}</td>
