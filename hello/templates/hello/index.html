@@ -14,7 +14,7 @@
   <form action="{% url 'index' %}" method="post"> <!--POSTメソッドでフォームを使う-->
     {% csrf_token %}
     {{ form.as_table }}
-    <input type="sybmit" value="click">
+    <input type="submit" value="click">
   </form>
   <table class="table">
   <tr> <!--trタグでthタグを挟むことで下記に記述したヘッダーを横列に表示-->
