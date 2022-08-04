@@ -11,24 +11,29 @@
 <body class="container">
   <h1 class="display-4 text-primary">{{title}}</h1>
   <p class="h5 mt-4">{{massage|safe}}</p>
+  <form action="{% url 'index' %}" method="post"> <!--POSTメソッドでフォームを使う-->
+    {% csrf_token %}
+    {{ form.as_table }}
+    <input type="sybmit" value="click">
+  </form>
   <table class="table">
-    <tr> <!--trタグでthタグを挟むことで下記に記述したヘッダーを横列に表示-->
-      <th>ID</th> <!--thタグでターブルのヘッダーを表示-->
-      <th>NAME</th>
-      <th>GENDER</th>
-      <th>AGE</th>
-      <th>BIRTHDAY</th>
-    </tr>
+  <tr> <!--trタグでthタグを挟むことで下記に記述したヘッダーを横列に表示-->
+    <th>ID</th> <!--thタグでターブルのヘッダーを表示-->
+    <th>NAME</th>
+    <th>GENDER</th>
+    <th>AGE</th>
+    <th>BIRTHDAY</th>
+  </tr>
   {% for item in data %} <!--テンプレートタグで囲むことでpythonのfor文と同じ処理を実行-->
-    <tr>
-      <td>{{item.id}}</td> <!--テーブルのレコードに自動的に追加されたプライマリキー(レコードを識別する値)を表示-->
-      <td>{{item.name}}</td>
-      <td>{% if item.gender == False %}male{% endif %}
-          {% if item.gender == True %}female{% endif %}</td> <!--レコードのgenderの真偽値に応じてmaleかfemaleかを返す条件分岐の作成-->
-      <td>{{item.mail}}</td>
-      <td>{{item.age}}</td>
-      <td>{{item.birthday}}</td>
-      </tr>
+  <tr>
+    <td>{{item.id}}</td> <!--テーブルのレコードに自動的に追加されたプライマリキー(レコードを識別する値)を表示-->
+    <td>{{item.name}}</td>
+    <td>{% if item.gender == False %}male{% endif %}
+        {% if item.gender == True %}female{% endif %}</td> <!--レコードのgenderの真偽値に応じてmaleかfemaleかを返す条件分岐の作成-->
+    <td>{{item.mail}}</td>
+    <td>{{item.age}}</td>
+                      <td>{{item.birthday}}</td>
+  </tr>
   {% endfor %} <!--繰り返し処理の終了-->
   </table>
 </body>
