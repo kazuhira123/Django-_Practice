@@ -13,7 +13,7 @@
   <form action="{% url 'create' %}" method="post"> <!--アドレスcreateにpostメソッドで値が送信された時に、formをpタグで囲んで表示する-->
     {% csrf_token %}
     {{ form.as_p }}
-    <input type="btn btn-primary mt-2">
+    <input type="submit" value="click" class="btn btn-primary mt-2">
   </form>
 </body>
 </html>
