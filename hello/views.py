@@ -20,6 +20,7 @@ def index(request):
 
 #create model
 def create(request):
+  data = Friend.objects.all()
   params = {
     'title': 'Hello',
     'data': data, #Friendオブジェクトから取得した値がparamsのdata要素に入る

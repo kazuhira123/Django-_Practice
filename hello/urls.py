@@ -3,4 +3,5 @@ from . import views #viewsをimportする
 
 urlpatterns = [
     url('', views.index, name='index'),
+    url('create', views.create, name='create'),
   ]
