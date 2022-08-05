@@ -10,7 +10,7 @@
 </head>
 <body class="container">
   <h1 class="display-4 text-primary">{{title}}</h1>
-  <form action="{% url 'create' %}" method="post">
+  <form action="{% url 'create' %}" method="post"> <!--アドレスcreateにpostメソッドで値が送信された時に、formをpタグで囲んで表示する-->
     {% csrf_token %}
     {{ form.as_p }}
     <input type="btn btn-primary mt-2">

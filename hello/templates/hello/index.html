@@ -11,7 +11,14 @@
 <body class="container">
   <h1 class="display-4 text-primary">{{title}}</h1>
   <table class="table">
-    {{data|safe}} <!--ビュー関数index内で定義したdataの値を表示-->
+    <tr>
+      <th>data</th>
+    </tr>
+  {% for item in data %} <!--views.pyで定義したdataの値を繰り返し表示する-->
+  <tr>
+    <td>{{item}}</td>
+  </tr>
+  {% endfor %}
   </table>
 </body>
 </html>
