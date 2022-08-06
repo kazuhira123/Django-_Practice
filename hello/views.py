@@ -44,3 +44,15 @@ def edit(request, num): #URL側で指定したedit/<int:num>によってアド�
     'form':FriendForm(instance=obj),
   }
   return render(request, 'hello/edit.html', params)
+
+def delete(request, num):
+  friend = Friend.objects.get(id=num)
+  if (request.method == 'POST'):
+    friend.delete() #Friendインスタンスで取得したレコードを削除する
+    return redirect(to='/hello')
+  params = {
+    'title':'Hello',
+    'id':num,
+    'obj':friend,
+  }
+  return render(request, 'hello/delete.html', params)
