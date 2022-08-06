@@ -1,3 +1,4 @@
+import imp
 import re
 from tkinter.messagebox import NO
 from turtle import pd
@@ -6,7 +7,7 @@ from unittest import result
 from django.shortcuts import redirect, render #redirectとrender関数をimport
 from django.http import HttpResponse #HttpResponseクラスをimportする
 from django.views.generic import TemplateView #TemplateViewクラスを呼び出す
-from .forms import HelloForm #forms.pyのHelloFormクラスを呼び出す
+from .forms import FriendForm #FriendFormクラスをimport
 from .models import Friend
 from django.db.models import QuerySet
 
@@ -20,17 +21,13 @@ def index(request):
 
 #create model
 def create(request):
-  params = {
-    'title': 'Hello',
-    'form': HelloForm(),
-  }
   if (request.method == 'POST'):
-    name = request.POST['name'] #ここから変数にPOSTメソッドで送信されたテーブルの各項目の値を代入する処理
-    mail = request.POST['mail']
-    gender = 'gender' in request.POST #BooleanFieldで定義されているgender要素だけ処理が違う(POSTメソッドで送信された値からgenderキーの要素を取り出している)
-    age = int(request.POST['age']) #ageキーの要素を整数として取り出す
-    birth = request.POST['birthday']
-    friend = Friend(name=name, mail=mail, gender=gender, age=age, birthday=birth) #上記で定義した変数の値を元にFriendインスタンスを生成
-    friend.save() #firendインスタンスの保存
+    obj = Friend() #Friendクラスのインスタンスを生成し変数objに代入
+    friend = FriendForm(request.POST, instance=obj) #FriendFormインスタンスを生成し、引数にPOST送信された情報とobjインスタンスを指定
+    friend.save() #firendインスタンスの保存、変数friendはFriendFormのインスタンス変数であるため、FriendFormに送られた値が保存される
     return redirect(to='/hello') #上記インスタンスを保存した後、/helloにリダイレクト(自動的に他のWebページに転送されること)される
+  params = {
+    'title':'Hello',
+    'form':FriendForm(),
+  }
   return render(request, 'hello/create.html', params) #create.htmlを表示する際にcreate関数を返す
