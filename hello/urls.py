@@ -6,5 +6,5 @@ from . import views #viewsをimportする
 urlpatterns = [
     path('', views.index, name='index'),
     path('create', views.create, name='create'),
-    path('edit/<int:num>', views.edit, name='edit') #/edit/の後ろにIDの数字を入れることができるように指定
+    path('edit/<int:num>', views.edit, name='edit'), #/edit/の後ろにIDの数字を入れることができるように指定
   ]

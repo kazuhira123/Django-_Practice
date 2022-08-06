@@ -17,7 +17,7 @@
   {% for item in data %} <!--views.pyで定義したdataの値を繰り返し表示する-->
   <tr>
     <td>{{item}}</td>
-    <td><a href="{% url 'edit' item.id %}"Edit</a></td> <!--テーブルの右端にEdit表示を追加し、url/edit/idの値のアドレスにアクセスするようになっている-->
+    <td><a href="{% url 'edit' item.id %}">Edit</a></td> <!--テーブルの右端にEdit表示を追加し、url/edit/idの値のアドレスにアクセスするようになっている-->
   </tr>
   {% endfor %}
   </table>

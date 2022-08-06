@@ -11,13 +11,13 @@
 <body class="container">
   <h1 class="display-4 text-primary">{{title}}</h1>
   <form action="{% url 'create' %}" method="post"> <!--アドレスcreateにpostメソッドで値が送信された時に、formをpタグで囲んで表示する-->
-    {% csrf_token %}
-      <table class="table">
-      {{ form.as_table }} <!--formの表示をtableタグで囲む-->
-        <tr><th><td>
-          <input type="submit" value="click" class="btn btn-primary mt-2">
-        </td></th></tr>
-      </table>
+  {% csrf_token %}
+    <table class="table">
+    {{ form.as_table }} <!--formの表示をtableタグで囲む-->
+      <tr><th><td>
+        <input type="submit" value="click" class="btn btn-primary mt-2">
+      </td></th></tr>
+    </table>
   </form>
 </body>
 </html>
