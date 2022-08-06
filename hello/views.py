@@ -10,6 +10,14 @@ from django.views.generic import TemplateView #TemplateViewクラスを呼び出
 from .forms import FriendForm #FriendFormクラスをimport
 from .models import Friend
 from django.db.models import QuerySet
+from django.views.generic import ListView
+from django.views.generic import DetailView
+
+class FriendList(ListView):
+  model = Friend #Friendモデルの全てのレコードを呼び出す
+
+class FriendDetail(DetailView):
+  model = Friend
 
 def index(request):
   data = Friend.objects.all()
