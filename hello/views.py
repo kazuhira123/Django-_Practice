@@ -35,7 +35,7 @@ def create(request):
 def edit(request, num): #URL側で指定したedit/<int:num>によってアドレスのnumの値が引数numに代入される
   obj = Friend.objects.get(id=num) #関数の引数に指定した値とテーブルから取得したレコードのidが一致するものだけを取得
   if (request.method == 'POST'):
-    friend = FriendForm(request.POST, instance=obj)
+    friend = FriendForm(request.POST, instance=obj) #FriendFormのインスタンスの引数にobjを指定することで、取得したFriendインスタンスの内容が更新され、レコードが保存される
     friend.save()
     return redirect(to='/hello')
   params = {
