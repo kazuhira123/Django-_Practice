@@ -13,6 +13,7 @@ from .models import Friend
 from django.db.models import QuerySet
 from django.views.generic import ListView
 from django.views.generic import DetailView
+from django.db.models import Q
 
 class FriendList(ListView):
   model = Friend #Friendモデルの全てのレコードを呼び出す
@@ -70,7 +71,8 @@ def find(request):
   if (request.method == 'POST'):
     form = FindForm(request.POST)
     find = request.POST['find'] #POSTメソッドでの通信時に検索した値を変数findに代入
-    data = Friend.objects.filter(age__lte=int(find)) #Friendモデルの項目nameと入力した値が一致するものを検索する
+    val = find.split() #splitメソッドでテキストを分割したリストを返す、今回はsplitに引数を指定していないので、半角スペースや改行で分割する
+    data = Friend.objects.filter(age__gte=val[0], age__lte=val[1]) #val[0]以上、val[1]以下のレコードを検索する
     msg = 'Result: ' + str(data.count()) #検索したデータの個数を表示
   else:
     msg = 'search words…'
