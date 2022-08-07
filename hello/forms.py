@@ -18,4 +18,4 @@ class FriendForm(forms.ModelForm): #ModelFormクラスを継承したFriendForm�
     fields = ['name', 'mail', 'gender', 'age', 'birthday'] #フィールドの設定
 
 class FindForm(forms.Form):
-  find = forms.CharField(label='find', required=False, widget=forms.TextInput(attrs={'class':'form-control'}))
+  find = forms.IntegerField(label='find', required=False, widget=forms.TextInput(attrs={'class':'form-control'}))

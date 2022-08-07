@@ -70,7 +70,7 @@ def find(request):
   if (request.method == 'POST'):
     form = FindForm(request.POST)
     find = request.POST['find'] #POSTメソッドでの通信時に検索した値を変数findに代入
-    data = Friend.objects.filter(name=find) #Friendモデルの項目nameと入力した値が一致するものを検索する
+    data = Friend.objects.filter(age__lte=int(find)) #Friendモデルの項目nameと入力した値が一致するものを検索する
     msg = 'Result: ' + str(data.count()) #検索したデータの個数を表示
   else:
     msg = 'search words…'
@@ -78,7 +78,7 @@ def find(request):
     data = Friend.objects.all()
   params = {
     'title':'Hello',
-    'massage':'msg',
+    'massage':msg,
     'form':form,
     'data':data,
   }
