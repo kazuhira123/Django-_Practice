@@ -69,11 +69,11 @@ def delete(request, num):
 
 def find(request):
   if (request.method == 'POST'):
+    msg = 'search result:'
     form = FindForm(request.POST)
     find = request.POST['find'] #POSTメソッドでの通信時に検索した値を変数findに代入
-    val = find.split() #splitメソッドでテキストを分割したリストを返す、今回はsplitに引数を指定していないので、半角スペースや改行で分割する
-    data = Friend.objects.filter(age__gte=val[0], age__lte=val[1]) #val[0]以上、val[1]以下のレコードを検索する
-    msg = 'Result: ' + str(data.count()) #検索したデータの個数を表示
+    list = find.split() #splitメソッドでテキストを分割したリストを返す、今回はsplitに引数を指定していないので、半角スペースや改行で分割する
+    data = Friend.objects.filter(name__in=list) #検索した文字列をまとめてリスト化し、そのリストに合致する結果を返す
   else:
     msg = 'search words…'
     form = FindForm()
