@@ -22,9 +22,10 @@ class FriendDetail(DetailView):
   model = Friend
 
 def index(request):
-  data = Friend.objects.all()
+  data = Friend.objects.all().order_by('age') #objects.all()で取得したレコードをモデルの項目ageを基準に並べ替えるnarabekaeru
   params = {
     'title': 'Hello',
+    'massage':'',
     'data': data, #Friendオブジェクトから取得した値がparamsのdata要素に入る
   }
   return render(request, 'hello/index.html', params)
