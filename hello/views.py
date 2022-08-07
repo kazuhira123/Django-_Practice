@@ -1,3 +1,4 @@
+from ast import If
 import imp
 import re
 from tkinter.messagebox import NO
@@ -7,7 +8,7 @@ from unittest import result
 from django.shortcuts import redirect, render #redirectとrender関数をimport
 from django.http import HttpResponse #HttpResponseクラスをimportする
 from django.views.generic import TemplateView #TemplateViewクラスを呼び出す
-from .forms import FriendForm #FriendFormクラスをimport
+from .forms import FindForm, FriendForm #FriendFormクラスをimport
 from .models import Friend
 from django.db.models import QuerySet
 from django.views.generic import ListView
@@ -64,3 +65,21 @@ def delete(request, num):
     'obj':friend,
   }
   return render(request, 'hello/delete.html', params)
+
+def find(request):
+  if (request.method == 'POST'):
+    form = FindForm(request.POST)
+    find = request.POST['find'] #POSTメソッドでの通信時に検索した値を変数findに代入
+    data = Friend.objects.filter(name=find) #Friendモデルの項目nameと入力した値が一致するものを検索する
+    msg = 'Result: ' + str(data.count()) #検索したデータの個数を表示
+  else:
+    msg = 'search words…'
+    form = FindForm()
+    data = Friend.objects.all()
+  params = {
+    'title':'Hello',
+    'massage':'msg',
+    'form':form,
+    'data':data,
+  }
+  return render(request, 'hello/find.html', params)
