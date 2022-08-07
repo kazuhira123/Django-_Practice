@@ -11,5 +11,6 @@ urlpatterns = [
     path('edit/<int:num>', views.edit, name='edit'), #/edit/の後ろにIDの数字を入れることができるように指定
     path('delete/<int:num>', views.delete, name='delete'),
     path('list', FriendList.as_view()), #FriendListをビュークラスであるViewインスタンスとして取り出す
-    path('detail/<int:pk>', FriendDetail.as_view()), #☆
+    path('detail/<int:pk>', FriendDetail.as_view()),
+    path('find', views.find, name='find'),
   ]
