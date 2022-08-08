@@ -74,7 +74,7 @@ def find(request):
     form = FindForm(request.POST)
     find = request.POST['find'] #POSTメソッドでの通信時に検索した値を変数findに代入
     list = find.split() #splitメソッドでテキストを分割したリストを返す、今回はsplitに引数を指定していないので、半角スペースや改行で分割する
-    data = Friend.objects.filter(name__in=list) #検索した文字列をまとめてリスト化し、そのリストに合致する結果を返す
+    data = Friend.objects.all()[int(list[0]):int(list[1])] #フォームに入力した数値の範囲のレコードを取り出す
   else:
     msg = 'search words…'
     form = FindForm()
