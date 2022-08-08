@@ -82,11 +82,13 @@ def delete(request, num):
 
 def find(request):
   if (request.method == 'POST'):
-    msg = 'search result:'
+    msg = request.POST['find']
     form = FindForm(request.POST)
-    find = request.POST['find'] #POSTメソッドでの通信時に検索した値を変数findに代入
-    list = find.split() #splitメソッドでテキストを分割したリストを返す、今回はsplitに引数を指定していないので、半角スペースや改行で分割する
-    data = Friend.objects.all()[int(list[0]):int(list[1])] #フォームに入力した数値の範囲のレコードを取り出す
+    sql = 'select * from hello_friend' #rawメソッドで実行するSQL文、,中身はfriendテーブルの全てのレコードを取得する文
+    if (msg != ''):
+      sql += ' where ' + msg #フォームにテキストが入力されていた場合、WEHRE文の条件に入力したテキストが追加される(whereの前後のスペースキー忘れずに！)
+    data = Friend.objects.raw(sql) #SQL文を実行するrawメソッドにSELECT文を記載した変数sqlを代入
+    msg = sql
   else:
     msg = 'search words…'
     form = FindForm()
