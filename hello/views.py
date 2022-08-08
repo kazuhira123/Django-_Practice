@@ -1,8 +1,9 @@
 from ast import If
 import imp
+from itertools import count
 import re
 from tkinter.messagebox import NO
-from turtle import pd
+from turtle import pd, st
 from unicodedata import name
 from unittest import result
 from django.shortcuts import redirect, render #redirectとrender関数をimport
@@ -14,6 +15,7 @@ from django.db.models import QuerySet
 from django.views.generic import ListView
 from django.views.generic import DetailView
 from django.db.models import Q
+from django.db.models import Count,Sum,Avg,Min,Max #レコード集計用の関数5つをimportした
 
 class FriendList(ListView):
   model = Friend #Friendモデルの全てのレコードを呼び出す
@@ -22,10 +24,20 @@ class FriendDetail(DetailView):
   model = Friend
 
 def index(request):
-  data = Friend.objects.all().order_by('age') #objects.all()で取得したレコードをモデルの項目ageを基準に並べ替えるnarabekaeru
+  data = Friend.objects.all()
+  re1 = Friend.objects.aggregate(Count('age')) #レコードを集計するaggregateメソッドを使う
+  re2 = Friend.objects.aggregate(Sum('age'))
+  re3 = Friend.objects.aggregate(Avg('age'))
+  re4 = Friend.objects.aggregate(Min('age'))
+  re5 = Friend.objects.aggregate(Max('age'))
+  msg = 'Count:' + str(re1['age__count']) \
+    + '<br>Sum:' + str(re2['age__sum']) \
+    + '<br>Average:' + str(re3['age__avg']) \
+    + '<br>Min:' + str(re4['age__min']) \
+    + '<br>Max:' + str(re5['age__max']) #aggregateメソッドで辞書として取り出した値を文字列として変数msgに代入
   params = {
     'title': 'Hello',
-    'massage':'',
+    'massage':msg,
     'data': data, #Friendオブジェクトから取得した値がparamsのdata要素に入る
   }
   return render(request, 'hello/index.html', params)
