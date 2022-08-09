@@ -14,6 +14,9 @@ class HelloForm(forms.Form): #HelloFormクラスにforms.Formクラスを継承
 
 class CheckForm(forms.Form):
   str = forms.CharField(label='Name', widget=forms.TextInput(attrs={'class':'form-control'}))
+  Empty = forms.CharField(label='Empty', empty_value=True, widget=forms.TextInput(attrs={'class':'form-control'}))
+  min = forms.CharField(label='Min', min_length=5, widget=forms.TextInput(attrs={'class':'form-control'}))
+  max = forms.IntegerField(label='Max', max_value=10000, widget=forms.NumberInput(attrs={'class':'form-control'}))
 
 class FriendForm(forms.ModelForm): #ModelFormクラスを継承したFriendFormクラスを定義
   class Meta: #ModelFormの内部クラスMetaの定義(メタクラスと呼ばれるらしい)
