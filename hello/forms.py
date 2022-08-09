@@ -12,6 +12,9 @@ class HelloForm(forms.Form): #HelloFormクラスにforms.Formクラスを継承
   age = forms.IntegerField(label='Age', widget=forms.NumberInput(attrs={'class':'from-control'}))
   birthday = forms.DateField(label='Birth', widget=forms.DateInput(attrs={'class':'form-control'}))
 
+class CheckForm(forms.Form):
+  str = forms.CharField(label='Name', widget=forms.TextInput(attrs={'class':'form-control'}))
+
 class FriendForm(forms.ModelForm): #ModelFormクラスを継承したFriendFormクラスを定義
   class Meta: #ModelFormの内部クラスMetaの定義(メタクラスと呼ばれるらしい)
     model = Friend #モデルクラスの設定

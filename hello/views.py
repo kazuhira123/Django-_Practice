@@ -16,6 +16,7 @@ from django.views.generic import ListView
 from django.views.generic import DetailView
 from django.db.models import Q
 from django.db.models import Count,Sum,Avg,Min,Max #レコード集計用の関数5つをimportした
+from .forms import CheckForm
 
 class FriendList(ListView):
   model = Friend #Friendモデルの全てのレコードを呼び出す
@@ -100,3 +101,18 @@ def find(request):
     'data':data,
   }
   return render(request, 'hello/find.html', params)
+
+def check(request):
+  params = {
+    'title':'Hello',
+    'massage':'check validation',
+    'form':CheckForm()
+  }
+  if (request.method == 'POST'):
+    form = CheckForm(request.POST)
+    params['form'] = form #CheckFormに入力された値を変数formに代入
+    if (form.is_valid()): #変数formの値にエラーがないか確認
+      params['massage'] = 'OK!'
+    else:
+      params['massage'] = 'no good.'
+  return render(request, 'hello/check.html', params)
