@@ -13,8 +13,12 @@
   <p>{{massage|safe}}</p>
   <form action="{% url 'check' %}" method="post">
     {% csrf_token %}
+    <table class="table">
     {{ form.as_table }} <!--formの表示をtableタグで囲む-->
-        <input type="submit" value="click" class="btn btn-primary mt-2">
+    <tr><th></th><td>
+      <input type="submit" value="click" class="btn btn-primary mt-2">
+    </td></tr>
+    </table>
   </form>
 </body>
 </html>

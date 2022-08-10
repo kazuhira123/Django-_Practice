@@ -106,11 +106,12 @@ def check(request):
   params = {
     'title':'Hello',
     'massage':'check validation',
-    'form':CheckForm()
+    'form':FriendForm()
   }
   if (request.method == 'POST'):
-    form = CheckForm(request.POST)
-    params['form'] = form #CheckFormに入力された値を変数formに代入
+    obj = Friend()
+    form = FriendForm(request.POST, instance=obj)
+    params['form'] = form #FriendFormに入力された値をparamsのformキーの要素に代入
     if (form.is_valid()): #変数formの値にエラーがないか確認
       params['massage'] = 'OK!'
     else:
