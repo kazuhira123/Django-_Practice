@@ -28,6 +28,12 @@ class FriendForm(forms.ModelForm): #ModelFormクラスを継承したFriendForm�
   class Meta: #ModelFormの内部クラスMetaの定義(メタクラスと呼ばれるらしい)
     model = Friend #モデルクラスの設定
     fields = ['name', 'mail', 'gender', 'age', 'birthday'] #フィールドの設定
+    widget = {
+      'name': forms.TextInput(attrs={'class':'form-control'}),
+      'mail': forms.EmailInput(attrs={'class':'form-control'}),
+      'age': forms.NumberInput(attrs={'class':'form-control'}),
+      'birthday': forms.DateInput(attrs={'class':'form-control'}),
+    }
 
 class FindForm(forms.Form):
   find = forms.CharField(label='find', required=False, widget=forms.TextInput(attrs={'class':'form-control'}))

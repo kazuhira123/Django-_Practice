@@ -11,22 +11,22 @@
 <body class="container">
   <h1 class="display-4 text-primary">{{title}}</h1>
   <p>{{massage|safe}}</p>
-  <ol class="list-group"> <!--順序のあるリストとしてエラーメッセージを表示-->
+  <ol class="list-group mb-4"> <!--順序のあるリストとしてエラーメッセージを表示-->
   {% for item in form %}
-  <li class="list-group py-2">{{item.name}} ({{item.value}}):{{ite.errrors.as_text}}</li> <!--モデルの属性を表示-->
+  <li class="list-group-item py-2">{{item.name}} ({{item.value}}):{{item.errors.as_text}}</li> <!--モデルの属性を表示-->
   {% endfor %}
   </ol>
-  <table class="table">
+  <table class="table mt-4">
     <form action="{% url 'check' %}" method="post">
     {% csrf_token %}    
-    <tr><th>名前</th><td>{{form.name}}</td></tr>
-    <tr><th>メール</th><td>{{form.mail}}</td></tr>
-    <tr><th>性別</th><td>{{form.gender}}</td></tr>
-    <tr><th>年齢</th><td>{{form.age}}</td></tr>
-    <tr><th>誕生日</th><td>{{form.birthday}}</td></tr>
-    <tr><th></th><td>
+    <div class="form-group">名前{{form.name}}</div> <!--divタグでフォームをグループ化-->
+    <div class="form-group">メール{{form.mail}}</div>
+    <div class="form-group">性別{{form.gender}}</div>
+    <div class="form-group">年齢{{form.age}}</div>
+    <div class="form-group">誕生日{{form.birthday}}</div>
+    <div class="form-group">
     <input type="submit" value="click" class="btn btn-primary mt-2">
-    </td></tr>
+    </div>
     </form>
   </table>
 </body>
