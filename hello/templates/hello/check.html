@@ -11,14 +11,23 @@
 <body class="container">
   <h1 class="display-4 text-primary">{{title}}</h1>
   <p>{{massage|safe}}</p>
-  <form action="{% url 'check' %}" method="post">
-    {% csrf_token %}
-    <table class="table">
-    {{ form.as_table }} <!--formの表示をtableタグで囲む-->
+  <ol class="list-group"> <!--順序のあるリストとしてエラーメッセージを表示-->
+  {% for item in form %}
+  <li class="list-group py-2">{{item.name}} ({{item.value}}):{{ite.errrors.as_text}}</li> <!--モデルの属性を表示-->
+  {% endfor %}
+  </ol>
+  <table class="table">
+    <form action="{% url 'check' %}" method="post">
+    {% csrf_token %}    
+    <tr><th>名前</th><td>{{form.name}}</td></tr>
+    <tr><th>メール</th><td>{{form.mail}}</td></tr>
+    <tr><th>性別</th><td>{{form.gender}}</td></tr>
+    <tr><th>年齢</th><td>{{form.age}}</td></tr>
+    <tr><th>誕生日</th><td>{{form.birthday}}</td></tr>
     <tr><th></th><td>
-      <input type="submit" value="click" class="btn btn-primary mt-2">
+    <input type="submit" value="click" class="btn btn-primary mt-2">
     </td></tr>
-    </table>
-  </form>
+    </form>
+  </table>
 </body>
 </html>
