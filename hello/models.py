@@ -1,9 +1,10 @@
 from unicodedata import name
 from django.db import models #django.dbモジュールから、modelsパッケージをimportする
-from django.core.validators import MinValueValidator, MaxValueValidator #最小値と最大値設定用のクラスをimport
+from django.core.validators import MinValueValidator, MaxValueValidator, RegexValidator #モデルルール用のバリデーターをimport
 
 class Friend(models.Model): #Friendクラスの定義、下記に定義された情報がテーブルの項目と入れる値のデータ型を決定する
-  name = models.CharField(max_length=100) #各項目を変数にレコードの定義をインスタンスに記述
+  name = models.CharField(max_length=100, \
+    validators=[RegexValidator(r'^[a-z]*$')]) #正規表現を利用して、nameにa~zまでの小文字だけを入力できるように設定 
   mail = models.EmailField(max_length=200)
   gender = models.BooleanField()
   age = models.IntegerField(validators=[ \
