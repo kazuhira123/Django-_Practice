@@ -17,6 +17,7 @@ from django.views.generic import DetailView
 from django.db.models import Q
 from django.db.models import Count,Sum,Avg,Min,Max #レコード集計用の関数5つをimportした
 from .forms import CheckForm
+from django.core.paginator import Paginator
 
 class FriendList(ListView):
   model = Friend #Friendモデルの全てのレコードを呼び出す
@@ -24,22 +25,13 @@ class FriendList(ListView):
 class FriendDetail(DetailView):
   model = Friend
 
-def index(request):
-  data = Friend.objects.all()
-  re1 = Friend.objects.aggregate(Count('age')) #レコードを集計するaggregateメソッドを使う
-  re2 = Friend.objects.aggregate(Sum('age'))
-  re3 = Friend.objects.aggregate(Avg('age'))
-  re4 = Friend.objects.aggregate(Min('age'))
-  re5 = Friend.objects.aggregate(Max('age'))
-  msg = 'Count:' + str(re1['age__count']) \
-    + '<br>Sum:' + str(re2['age__sum']) \
-    + '<br>Average:' + str(re3['age__avg']) \
-    + '<br>Min:' + str(re4['age__min']) \
-    + '<br>Max:' + str(re5['age__max']) #aggregateメソッドで辞書として取り出した値を文字列として変数msgに代入
+def index(request, num=1):
+  data = Friend.objects.all() #Firendモデルのレコードを全て取得
+  page = Paginator(data, 3) #取得したレコードを3つごとにページネーションする
   params = {
     'title': 'Hello',
-    'massage':msg,
-    'data': data, #Friendオブジェクトから取得した値がparamsのdata要素に入る
+    'massage':'',
+    'data': page.get_page(num), #引数numの値で指定したページを表示する
   }
   return render(request, 'hello/index.html', params)
 
