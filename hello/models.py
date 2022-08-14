@@ -1,5 +1,7 @@
+from importlib.resources import contents
 import re #Pythonの正規表現モジュールをimport
 from sqlite3 import paramstyle
+from turtle import title
 from django.db import models #django.dbモジュールから、modelsパッケージをimportする
 from django.core.validators import MinValueValidator, MaxValueValidator, RegexValidator #モデルルール用のバリデーターをimport
 from django.core.validators import ValidationError
@@ -24,3 +26,14 @@ class Friend(models.Model): #Friendクラスの定義、下記に定義された
   def __str__(self): #テキストの値を返す__str__メソッドを定義、これによってFriendクラスのインスタンスを{{}}で表示可能に
       return '<Friend:id=' + str(self.id) + ',' + self.name + '(' + str(self.age) + ')>' #レコードを追加したときの管理ツールでの表示される値を返す
 
+class Message(models.Model):
+  friend = models.ForeignKey(Friend, on_delete=models.CASCADE) #ForeignKeyを使ってFriendとの関連付けと削除用の機能を設定
+  title = models.CharField(max_length=100)
+  content = models.CharField(max_length=300)
+  pub_date = models.DateTimeField(auto_now_add=True) #auto_now_addをTrueにすることで、自動で値が設定されるようになる
+
+  def __str__(self):
+    return '<Message:id=' + str(self.id) + ',' + \
+      self.title + '(' + str(self.pub_date) + ')>'
+  class Meta:
+    ordering = ('pub_date',) #レコードを投稿日時順に並べ替えるための処理
