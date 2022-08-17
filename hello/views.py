@@ -9,8 +9,8 @@ from unittest import result
 from django.shortcuts import redirect, render #redirectとrender関数をimport
 from django.http import HttpResponse #HttpResponseクラスをimportする
 from django.views.generic import TemplateView #TemplateViewクラスを呼び出す
-from .forms import FindForm, FriendForm #FriendFormクラスをimport
-from .models import Friend
+from .forms import FindForm, FriendForm, MessageForm #FriendFormクラスをimport
+from .models import Friend, Message
 from django.db.models import QuerySet
 from django.views.generic import ListView
 from django.views.generic import DetailView
@@ -109,3 +109,17 @@ def check(request):
     else:
       params['massage'] = 'no good.'
   return render(request, 'hello/check.html', params)
+
+def message(request, page=1):
+  if (request.method == 'POST'):
+    obj = Message()
+    form = MessageForm(request.POST, instance=obj) #MessageFormからPOSTメソッドで送信されたデータをformインスタンスとして生成
+    form.save() #生成されたフォームの内容を保存する
+  data = Message.objects.all().reverse() #Messageモデルの全レコードを取得し、pub_dataが新しい順に表示
+  paginator = Paginator(data, 5) #1ページあたりのレコードを5つにしてページネーションする
+  params = {
+    'title':'Message',
+    'form':MessageForm(),
+    'data':paginator.get_page(page),
+  }
+  return render(request, 'hello/message.html',params)
