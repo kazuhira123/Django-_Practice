@@ -4,7 +4,7 @@ from secrets import choice
 from unicodedata import name
 from xml.dom import ValidationErr
 from django import forms
-from .models import Friend
+from .models import Friend,Message
 
 class HelloForm(forms.Form): #HelloFormクラスにforms.Formクラスを継承
   name = forms.CharField(label='Name', widget=forms.TextInput(attrs={'class':'form-control'})) #フォームの項目を追加し、それぞれのwidget引数にBootstrapのクラスを設定
@@ -37,3 +37,13 @@ class FriendForm(forms.ModelForm): #ModelFormクラスを継承したFriendForm�
 
 class FindForm(forms.Form):
   find = forms.CharField(label='find', required=False, widget=forms.TextInput(attrs={'class':'form-control'}))
+
+class MessageForm(forms.ModelForm):
+  class Meta:
+    model = Message
+    Fields = ['title', 'content', 'friend']
+    widgets = {
+      'title':forms.TextInput(attrs={'class':'form-control form-control-sm', 'rows':2}),
+      'content':forms.Textarea(attrs={'class':'form-control form-control-sm', 'rows':2}),
+      'friend':forms.Select(attrs={'class':'form-control form-control-sm', 'rows':2}),
+    }
