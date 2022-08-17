@@ -41,9 +41,9 @@ class FindForm(forms.Form):
 class MessageForm(forms.ModelForm):
   class Meta:
     model = Message
-    Fields = ['title', 'content', 'friend']
+    fields = ['title', 'content', 'friend']
     widgets = {
       'title':forms.TextInput(attrs={'class':'form-control form-control-sm', 'rows':2}),
       'content':forms.Textarea(attrs={'class':'form-control form-control-sm', 'rows':2}),
-      'friend':forms.Select(attrs={'class':'form-control form-control-sm', 'rows':2}),
+      'friend':forms.Select(attrs={'class':'form-control form-control-sm', 'rows':2}), #セレクトボックスでFriendモデルの値を表示
     }

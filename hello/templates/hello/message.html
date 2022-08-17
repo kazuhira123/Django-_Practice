@@ -1,0 +1,68 @@
+{% load static %} <!--静的ファイルをロードする-->
+<!doctype html> <!--DOCTYPE宣言と呼ばれる文書タイプがhtmlであることを示す-->
+<html lang="ja"> <!--このhtml要素内でしようされる言語は日本語だということ,ブラウザに言語を認識させるイメージ-->
+<head>
+  <meta charset="utf-8"> <!--メタ要素というページに関する様々な情報を記述する要素、今回はutf-8という文字コードに設定している-->
+  <title>{{title}}</title> <!--テンプレートで使用できる変数にtitleを追加-->
+  <link rel="stylesheet"
+    href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+    crossorigin="anonymous">
+</head>
+<body class="container">
+  <h1 class="display-4 text-primary">{{title}}</h1>
+  <form action="{% url 'message' %}" method="post">
+  {% csrf_token %}
+  {{form.as_p}}
+  <input type="submit" value="send" class="btn btn-primary">
+  <div class="mt-5"></div>
+  <table class="table">
+    <tr>
+      <th class="py-1">title</th>
+      <th class="py-1">name</th>
+      <th class="py-1">datetime</th>
+    </tr>
+  {% for item in data %}
+  <tr>
+    <td class="py-2">{{item.title}}</td>
+    <td class="py-2">{{item.friend.name}}</td> <!--Friendモデルの項目nameを取得し表示する-->
+    <td class="py-2">{{item.pub_date}}</td>
+  </tr>
+  {% endfor %}
+  </table>
+  <ul class="pagination justify-content-center">
+    {% if data.has_previous %} <!--現在のページの前にページがある時の処理-->
+    <li class="page-item">
+      <a class="page-link" href="{% url 'message' %}">&laquo; first</a>
+    </li>
+    <li class="page-item">
+      <a class="page-link" href="{% url 'message' %}{{data.previous_page_number}}">&laquo; prev</a> <!--リンクと前のページ番号を表示-->
+    </li>
+    {% else %} <!--前にページがないときは前のページに移動する表示のリンクを消す-->
+    <li class="page-item">
+      <a class="page-link">&laquo; first</a>
+    </li>
+    <li class="page-item">
+      <a class="page-link">&laquo; prev</a>
+    </li>
+    {% endif %}
+    <li class="page-item">
+      <a class="page-link">{{data.number}}/{{data.paginator.num_pages}}</a> <!--numberから現在のページ、num_pagesから全ページ数-->
+    </li>
+    {% if data.has_next %}
+    <li class="page-item">
+      <a class="page-link" href="{% url 'message' %}{{data.next_page_number}}">next &raquo;</a>
+    </li>
+    <li class="page-item">
+      <a class="page-link" href="{% url 'message' %}{{data.paginator.num_pages}}">last &raquo;</a>
+    </li>
+    {% else %}
+    <li class="page-item">
+      <a class="page-link">next &raquo;</a>
+    </li>
+    <li class="page-item">
+      <a class="page-link">last &raquo;</a>
+    </li>
+    {% endif %}
+  </ul>
+</body>
+</html>

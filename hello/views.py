@@ -120,6 +120,6 @@ def message(request, page=1):
   params = {
     'title':'Message',
     'form':MessageForm(),
-    'data':paginator.get_page(page),
+    'data':paginator.get_page(page), #get_pageメソッドでアクセス時のページを取得する
   }
   return render(request, 'hello/message.html',params)
