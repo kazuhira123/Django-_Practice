@@ -28,6 +28,11 @@
     <td>{{item.birthday}}</td>
     <td><a href="{% url 'edit' item.id %}">Edit</a></td> <!--テーブルの右端にEdit表示を追加し、url/edit/idの値のアドレスにアクセスするようになっている-->
     <td><a href="{% url 'delete' item.id %}">Delete</a></td> <!--レコード削除用のページのリンク-->
+    <td><ul>
+      {% for ob in item.message_set.all %} <!--message_set属性で関連するテーブルモデルのMessageの値を取得-->
+        <li>{{ob.title}}</li>
+      {% endfor %}
+    </ul></td>
   </tr>
   {% endfor %}
   </table>
