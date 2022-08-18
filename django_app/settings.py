@@ -37,7 +37,8 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'hello'     #☆
+    'hello',     #☆
+    'sns' #練習用snsアプリ
 ]
 
 MIDDLEWARE = [
