@@ -3,7 +3,8 @@ import re
 from sqlite3 import paramstyle
 from sre_constants import GROUPREF
 from tkinter.messagebox import NO
-from turtle import fd, title
+from tokenize import group
+from turtle import fd, pu, title
 from django import shortcuts
 from django.shortcuts import render
 from django.shortcuts import redirect
@@ -225,10 +226,67 @@ def share(request, share_id):
     return redirect(to='/sns')
   
   #共通処理
-  form = PostForm(request, user)
+  form = PostForm(request.user)
   params = {
     'login_user':request.user,
     'form':form,
     'share':share,
   }
   return render(request, 'sns/share.html', params)
+
+#goodボタンの処理
+@login_required(login_url='/admin/login/')
+def good (request, good_id):
+  #goodするMessageを取得
+  good_msg = Message.objects.get(id=good_id)
+  #自分がメッセージにgoodした数を調べる
+  is_good = Good.objects.filter(owner=request.user).filter(message=good_msg).count()
+  #0より大きければ既にgood済み
+  if is_good > 0:
+    messages.success(request, '既にメッセージにはgoodしています')
+    return redirect(to='/sns')
+  
+  #Messageのgood_countを1増やす
+  good_msg.good_count += 1
+  good_msg.save()
+  #Goodを作成し、設定し保存する
+  good = Good()
+  good.owner = request.user
+  good.message = good_msg
+  good.save()
+  #メッセージを設定
+  messages.success(request, 'メッセージにgoodしました!')
+  return redirect(to='/sns')
+
+#これ以降は普通の関数===========================
+
+#指定されたグループおよび検索文字によるMessageの取得
+def get_your_group_message(owner, glist, page):
+  page_num = 10 #ページあたりの表示数
+  #publicの取得
+  (public_user, public_group) = get_public()
+  #チェックされたGroupの取得
+  groups = Group.objects.filter(Q(owner=owner)|Q(owner=public_user)).filter(title__in=glist)
+  #Groupに含まれるFriendの取得
+  me_friends = Friend.objects.filter(group__in=groups)
+  #FriendのUserをリストにまとめる
+  me_users = []
+  for f in me_friends:
+    me_users.append(f.user)
+  #UserリストのUserが作ったGroupの取得
+  his_groups = Group.objects.filter(owner__in=me_users)
+  his_friends = Friend.objects.filter(user=owner).filter(group__in=his_groups)
+  me_groups = []
+  for hf in his_friends:
+    me_groups.append(hf.group)
+  #groupがgroupsに含まれるか、me_groupsに含まれるMessageの取得
+  messages = Message.objects.filter(Q(group__in=group)|Q(group__in=me_groups))
+  #ページネーションで指定ページを取得
+  page_item = Paginator(messages, page_num)
+  return page_item.get_page(page)
+
+#publicなUserとGroupを取得する
+def get_public():
+  public_user = User.objects.filter(username='public').first()
+  public_group = Group.objects.filter(owner=public_user).first()
+  return (public_user, public_group)
