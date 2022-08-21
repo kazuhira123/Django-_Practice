@@ -126,7 +126,7 @@ def add(request):
   #追加するUserを取得
   add_name = request.GET['name']
   add_user = User.objects.filter(username=add_name).first()
-  #Userが本陣だった場合の処理
+  #Userが本人だった場合の処理
   if add_user == request.user:
     messages.info(request, "自分自身をFriendに追加することはできません")
     return redirect(to='/sns')
@@ -148,4 +148,15 @@ def add(request):
   #メッセージを設定
   messages.success(request, add_user.username + 'を追加しました！ groupページに移動して、追加したFriendをメンバーに設定してください')
   return redirect(to='/sns')
+
+#グループの作成処理
+@login_required(login_url='/admin/login/')
+def creategroup(request):
+  #Groupを作り、Userとtitleを設定して保存する
+  gp = Group()
+  gp.owner = request.user
+  gp.title = request.user.username + 'の' + request.POST['group_name']
+  gp.save()
+  messages.info(request, '新しいグループを作成しました')
+  return redirect(to='/sns/groups')
 
