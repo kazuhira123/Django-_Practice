@@ -9,7 +9,7 @@
     crossorigin="anonymous">
 </head>
 <body class="container">
-  <nav class="navbar navbar-expand navbar-light bg-light">
+  <nav class="navbar navbar-expand navbar-light bg-light"> <!--navタグでナビゲーションを表示-->
   <ul class="navbar-nav mr-auto">
     <li class="nav-item">
       <a class="nav-link" href="{% url 'index' %}">top</a>
@@ -21,7 +21,7 @@
       <a class="nav-link" href="{% url 'groups' %}">group</a>
     </li>
   </ul>
-  <span>logined: <span class="h6">"{{login_user}}".</span></span>
+  <span>logined: <span class="h6">"{{login_user}}".</span></span> <!--spanタグでインライン要素をグループ化-->
   </nav>
 
   <div>{% block header %} <!--ヘッダー情報表示用のブロック生成-->

@@ -1,6 +1,6 @@
-{% extends 'sns/layout.html' %}
+{% extends 'sns/layout.html' %} <!--sns/layout.htmlを継承する-->
 
-{% block title %}Index{% endblock %}
+{% block title %}Index{% endblock %} <!--継承元のtitleブロックの処理のままIndexが表示される-->
 
 {% block header %}
 <script>
@@ -8,11 +8,11 @@ function sendGroupForm(page) {
   document.group_form.action += page;
   document.group_form.submit();
 }
-</script>
+</script> <!--scriptタグでjavascriptの記述を埋めこみ-->
 <h1 class="display-4 text-primary">SNS</h1>
 <p>※グループのチェックをONにしてupdateすると、
   そのグループに登録されている利用者のメッセージだけが表示されます</p>
-{% if messages %}
+{% if messages %} <!--システムメッセージがある場合の表示-->
 <ul class="messages">
   {% for message in messages %}
   <li {% if message.tags %}
