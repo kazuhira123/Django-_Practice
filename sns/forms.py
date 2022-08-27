@@ -10,25 +10,25 @@ from django.contrib.auth.models import User
 class MessageForm(forms.ModelForm):
   class Meta:
     model = Message
-    friend = ['owner', 'group', 'content']
+    fields = ['owner', 'group', 'content']
 
 #Groupのフォーム
 class GroupForm(forms.ModelForm):
   class Meta:
     model = Group
-    friend = ['owner', 'title']
+    fields = ['owner', 'title']
 
 #Friendのフォーム
 class FriendForm(forms.ModelForm):
   class Meta:
     model = Friend
-    friend = ['owner', 'user', 'group']
+    fields = ['owner', 'user', 'group']
 
 #Goodのフォーム
 class GoodForm(forms.ModelForm):
   class Meta:
     model = Good
-    friend = ['owner', 'message']
+    fields = ['owner', 'message']
 
 #Groupのチェックボックスフォーム
 class GroupCheckForm(forms.Form):

@@ -280,7 +280,7 @@ def get_your_group_message(owner, glist, page):
   for hf in his_friends:
     me_groups.append(hf.group)
   #groupがgroupsに含まれるか、me_groupsに含まれるMessageの取得
-  messages = Message.objects.filter(Q(group__in=group)|Q(group__in=me_groups))
+  messages = Message.objects.filter(Q(group__in=groups)|Q(group__in=me_groups))
   #ページネーションで指定ページを取得
   page_item = Paginator(messages, page_num)
   return page_item.get_page(page)
