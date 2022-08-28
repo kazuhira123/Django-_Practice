@@ -1,6 +1,9 @@
 from tkinter.messagebox import NO
 from django.test import TestCase
 
+from django.contrib.auth.models import User
+from .models import Message
+
 class SnsTest(TestCase):
   def test_check(self):
     x = True
@@ -11,3 +14,10 @@ class SnsTest(TestCase):
     self.assertIn(20, arr)
     nn = None
     self.assertIsNone(nn) #値がNoneになっているかのチェック
+
+class SnsTests(TestCase):
+  def test_model(self):
+    usr = User.objects.first()
+    self.assertIsNotNone(usr)
+    msg = Message.objects.first()
+    self.assertIsNotNone(msg)
