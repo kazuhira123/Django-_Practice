@@ -17,7 +17,7 @@ class SnsTest(TestCase):
 
 class SnsTests(TestCase):
   def test_model(self):
-    usr = User.objects.first()
+    usr = User.objects.first() #テスト用のデータベースからUserのオブジェクトを取得する
     self.assertIsNotNone(usr)
     msg = Message.objects.first()
     self.assertIsNotNone(msg)

@@ -1,11 +1,4 @@
 #外部のメソッドとクラスのimport
-import re
-from sqlite3 import paramstyle
-from sre_constants import GROUPREF
-from tkinter.messagebox import NO
-from tokenize import group
-from turtle import fd, pu, title
-from django import shortcuts
 from django.shortcuts import render
 from django.shortcuts import redirect
 from django.contrib.auth.models import User #ユーザー認証機能をimport
