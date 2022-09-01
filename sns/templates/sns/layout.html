@@ -12,13 +12,13 @@
   <nav class="navbar navbar-expand navbar-light bg-light"> <!--navタグでナビゲーションを表示-->
   <ul class="navbar-nav mr-auto">
     <li class="nav-item">
-      <a class="nav-link" href="{% url 'index' %}">top</a>
+      <a class="nav-link" href="{% url 'sns:index' %}">top</a>
     </li>
     <li class="nav-item">
-      <a class="nav-link" href="{% url 'post' %}">post</a>
+      <a class="nav-link" href="{% url 'sns:post' %}">post</a>
     </li>
     <li class="nav-item">
-      <a class="nav-link" href="{% url 'groups' %}">group</a>
+      <a class="nav-link" href="{% url 'sns:groups' %}">group</a>
     </li>
   </ul>
   <span>logined: <span class="h6">"{{login_user}}".</span></span> <!--spanタグでインライン要素をグループ化-->

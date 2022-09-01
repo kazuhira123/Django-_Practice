@@ -26,7 +26,7 @@ function sendGroupForm(page) {
 {% block content %}
 <hr>
 <div>
-  <form action="{% url 'index' %}" method="post" name="group-form">
+  <form action="{% url 'sns:index' %}" method="post" name="group-form">
     {% csrf_token %}
     {{check_form}}
     <div>
