@@ -12,7 +12,7 @@ from .models import Message,Friend,Group,Good
 from .forms import GroupCheckForm,GroupSelectForm,FriendsForm,CreateGroupForm,PostForm
 
 #indexのビュー関数
-@login_required(login_url='admin/login/') #/admin/login/へのログインが必須となるアノテーションを設定
+@login_required(login_url='/admin/login/') #/admin/login/へのログインが必須となるアノテーションを設定
 def index(request, page=1):
   #publicのuserを取得
   (public_user, public_group) = get_public()
@@ -62,9 +62,11 @@ def groups(request):
       #選択したGroup名を取得
       sel_group = request.POST['groups'] #選択されたgroupsの情報をsel_groupに代入
       #Groupを取得
-      gp = Group.objects.filter(owner=request.user).filter(title=sel_group).first() #利用者がアクセス時のユーザーかつメニューで選択されたgroupを検索し最初のものをgpに代入
+      gp = Group.objects.filter(owner=request.user) \
+        .filter(title=sel_group).first() #利用者がアクセス時のユーザーかつメニューで選択されたgroupを検索し最初のものをgpに代入
       #Groupに含まれるFriendを取得
-      fds = Friend.objects.filter(owener=request.user).filter(group=gp) #利用者がアクセス時のユーザーかつ、選択されたgroupと一致するFriendモデルのレコードを検索しfdsに代入
+      fds = Friend.objects.filter(owener=request.user) \
+        .filter(group=gp) #利用者がアクセス時のユーザーかつ、選択されたgroupと一致するFriendモデルのレコードを検索しfdsに代入
       print(Friend.objects.filter(owner=request.user)) #利用者がアクセス時のユーザーのFriendモデルのレコードを出力
       #FriendのUserをリストにまとめる
       vlist = []
@@ -72,9 +74,10 @@ def groups(request):
         vlist.append(item.user.username) #上記で検索したFriendモデルのレコードのユーザー名をリストに追加
       #フォームの用意
       groupsform = GroupSelectForm(request.user, request.POST) #indexと同じ処理
-      friendsform = FriendsForm(request.user, friends=friends, vals=vlist) #アクセス時のユーザーとFriendモデルのリスト、選択されたFriendを表示するリストの中身を引数にしてFriendsFormインスタンス生成
+      friendsform = FriendsForm(request.user, \
+        friends=friends, vals=vlist) #アクセス時のユーザーとFriendモデルのリスト、選択されたFriendを表示するリストの中身を引数にしてFriendsFormインスタンス生成
     
-    #Frinedsのチェック更新時の処理
+    #Friendsのチェック更新時の処理
     if request.POST['mode'] == '__friends_form__':
       #選択したGroupの取得
       sel_group = request.POST['group'] #選択されたgroupの値をsel_groupに代入
@@ -85,7 +88,8 @@ def groups(request):
       #FriendsのUserを取得
       sel_users = User.objects.filter(username__in=sel_fds) #User内のユーザー名が上記で取得したfriendsのリストに含まれているかを検索
       #Userのリストに含まれるユーザーが登録したFriendを取得
-      fds = Friend.objects.filter(owner=request.user).filter(user__in=sel_users) #上記で検索したUserを元にFriendモデルを検索
+      fds = Friend.objects.filter(owner=request.user) \
+        .filter(user__in=sel_users) #上記で検索したUserを元にFriendモデルを検索
       #全てのFriendにGroupを設定し保存する
       vlist = []
       for item in fds: #取得したFriendsモデルを元に繰り返し処理を実行
@@ -93,10 +97,13 @@ def groups(request):
         item.save() #上記のレコードの保存
         vlist.append(item.user.username) #リスト選択したFriendsモデルのユーザー名を追加
       #メッセージを設定
-      messages.success(request, 'チェックされたFriendを' + sel_group + 'に登録しました') #メッセージフレームワークでシステムメッセージを表示
+      messages.success(request, 'チェックされたFriendを' + \
+        sel_group + 'に登録しました') #メッセージフレームワークでシステムメッセージを表示
       #フォームの用意
-      groupsform = GroupSelectForm(request.user, {'groups':sel_group})
-      friendsform = FriendsForm(request.user, friends=friends, vals=vlist)
+      groupsform = GroupSelectForm(request.user, \
+        {'groups':sel_group})
+      friendsform = FriendsForm(request.user, \
+        friends=friends, vals=vlist)
     
     #GETアクセス時の処理
     else:
@@ -109,7 +116,7 @@ def groups(request):
     createform = CreateGroupForm() #グループ作成用のインスタンスを生成
     params = {
       'login_user':request.user,
-      'gourps_form':groupsform,
+      'groups_form':groupsform,
       'friends_form':friendsform,
       'create_form':createform,
       'group':sel_group,
@@ -129,7 +136,8 @@ def add(request):
   #publicの取得
   (public_user, public_group) = get_public()
   #add_userのFriendの数を調べる
-  frd_num = Friend.objects.filter(owner=request.user).filter(user=add_user).count()
+  frd_num = Friend.objects.filter(owner=request.user) \
+    .filter(user=add_user).count()
   #0より大きければ既に登録済み
   if frd_num > 0:
     messages.info(request, add_user.username + 'は既に追加されています')
@@ -142,7 +150,8 @@ def add(request):
   frd.group = public_group #Friendモデルのgroup情報をpublicグループに設定
   frd.save() #上記内容を保存
   #メッセージを設定
-  messages.success(request, add_user.username + 'を追加しました！ groupページに移動して、追加したFriendをメンバーに設定してください')
+  messages.success(request, add_user.username + 'を追加しました！ \
+    groupページに移動して、追加したFriendをメンバーに設定してください')
   return redirect(to='/sns') #snsアプリケーションのホームへリダイレクト
 
 #グループの作成処理
@@ -165,7 +174,8 @@ def post(request):
     gr_name = request.POST['groups'] #投稿されたgroupsの値をgr_nameに代入
     content = request.POST['content'] #投稿されたcontentの値をcontentに代入
     #Groupの取得
-    group = Group.objects.filter(owner=request.user).filter(title=gr_name).first() #Groupモデル内の投稿グループと位置する情報を取得
+    group = Group.objects.filter(owner=request.user) \
+      .filter(title=gr_name).first() #Groupモデル内の投稿グループと位置する情報を取得
     if group == None: #投稿されたgroupが存在しない時の処理
       (pub_user, group) = get_public() #publicのgroupを取り出す
     #Messageを作成し設定して保存
@@ -201,7 +211,8 @@ def share(request, share_id):
     gr_name = request.POST['groups']
     content = request.POST['content']
     #Groupの取得
-    group = Group.objects.filter(owner=request.user).filter(title=gr_name).first()
+    group = Group.objects.filter(owner=request.user) \
+      .filter(title=gr_name).first()
     if group == None:
       (pub_user, group) = get_public()
     #メッセージを作成し、設定し保存
@@ -209,7 +220,7 @@ def share(request, share_id):
     msg.owner = request.user
     msg.group = group
     msg.content = content
-    msg.share_id = share_id
+    msg.share_id = share.id
     msg.save()
     share_msg = msg.get_share()
     share_msg.share_count += 1
