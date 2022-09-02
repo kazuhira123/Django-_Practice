@@ -243,8 +243,9 @@ def share(request, share_id):
 def good (request, good_id):
   #goodするMessageを取得
   good_msg = Message.objects.get(id=good_id) #goodした時のidとMessageモデルのidが一致するものを取得
-  #自分がメッセージにgoodした数を調べる
-  is_good = Good.objects.filter(owner=request.user).filter(message=good_msg).count()
+  #自分がメッセージにGoodした数を調べる
+  is_good = Good.objects.filter(owner=request.user) \
+    .filter(message=good_msg).count()
   #0より大きければ既にgood済み
   if is_good > 0:
     messages.success(request, '既にメッセージにはgoodしています')
@@ -270,7 +271,8 @@ def get_your_group_message(owner, glist, page):
   #publicの取得
   (public_user, public_group) = get_public()
   #チェックされたGroupの取得
-  groups = Group.objects.filter(Q(owner=owner)|Q(owner=public_user)).filter(title__in=glist)
+  groups = Group.objects.filter(Q(owner=owner) \
+    |Q(owner=public_user)).filter(title__in=glist)
   #Groupに含まれるFriendの取得
   me_friends = Friend.objects.filter(group__in=groups)
   #FriendのUserをリストにまとめる
@@ -279,12 +281,14 @@ def get_your_group_message(owner, glist, page):
     me_users.append(f.user)
   #UserリストのUserが作ったGroupの取得
   his_groups = Group.objects.filter(owner__in=me_users)
-  his_friends = Friend.objects.filter(user=owner).filter(group__in=his_groups)
+  his_friends = Friend.objects.filter(user=owner) \
+    .filter(group__in=his_groups)
   me_groups = []
   for hf in his_friends:
     me_groups.append(hf.group)
   #groupがgroupsに含まれるか、me_groupsに含まれるMessageの取得
-  messages = Message.objects.filter(Q(group__in=groups)|Q(group__in=me_groups))
+  messages = Message.objects.filter(Q(group__in=groups) \
+    |Q(group__in=me_groups))
   #ページネーションで指定ページを取得
   page_item = Paginator(messages, page_num)
   return page_item.get_page(page)
