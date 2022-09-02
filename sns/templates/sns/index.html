@@ -17,7 +17,7 @@ function sendGroupForm(page) {
   {% for message in messages %}
   <li {% if message.tags %}
     class="{{message.tags}}"
-    {% endif %}>{{message}}
+    {% endif %}>{{message}}</li>
   {% endfor %}
 </ul>
 {% endif %}
@@ -26,7 +26,7 @@ function sendGroupForm(page) {
 {% block content %}
 <hr>
 <div>
-  <form action="{% url 'sns:index' %}" method="post" name="group-form">
+  <form action="{% url 'sns:index' %}" method="post" name="group_form">
     {% csrf_token %}
     {{check_form}}
     <div>
@@ -101,6 +101,9 @@ function sendGroupForm(page) {
   {% else %}
   <li class="page-item">
     <a class="page-link">next &raquo;</a>
+  </li>
+  <li class="page-item">
+    <a class="page-link">last &raquo;</a>
   </li>
   {% endif %}
 </ul>
