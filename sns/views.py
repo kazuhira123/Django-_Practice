@@ -31,7 +31,7 @@ def index(request, page=1):
 
   #GETアクセス時の処理
   else:
-    #フォームの用意
+    #フォームの用意こ
     checkform = GroupCheckForm(request.user)  #アクセス時のユーザー情報を元にGroupCheckFormのインスタンスを生成
     #Groupのリストを取得
     gps = Group.objects.filter(owner=request.user) #Groupモデルの中から、利用者がアクセス時のユーザーのデータを検索する
