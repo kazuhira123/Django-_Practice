@@ -38,7 +38,18 @@ class SnsTest(TestCase):
     Message(content="finish", owner_id=usr.id, group_id=grp.id).save()
 
   def test_check(self):
-    usr = User.objects.first() #テスト用のデータベースからUserのオブジェクトを取得する
-    self.assertIsNotNone(usr)
-    msg = Message.objects.first()
-    self.assertIsNotNone(msg)
+    usr = User.objects.filter(username='test').first() #テスト用のデータベースからUserのオブジェクトを取得する
+
+    msg = Message.objects.filter(content='test').first()
+    self.assertIs(msg.owner_id, usr.id) #msgのowner_idがusr.idと一致するかのチェク
+    self.assertEqual(msg.owner.username, usr.username) #msgのowner.usernameとusr.usernameが一致するかのチェック
+    self.assertEqual(msg.group.title, 'public') #msgのgroup.titleがpublicと一致するかのチェック
+
+    msgs = Message.objects.filter(content__contains="test").all()
+    self.assertIs(msgs.count(), 2) #contentにtestの文字列を含むMessageが2個あるかのチェック
+    c = Message.objects.all().count()
+    self.assertIs(c, 5) #Messageのレコード数が5個かのチェック
+
+    msg1 = Message.objects.all().first()
+    msg2 = Message.objects.all().last()
+    self.assertIsNot(msg1, msg2) #Messageの最初と最後が異なる値かのチェック
