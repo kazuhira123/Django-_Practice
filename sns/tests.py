@@ -1,8 +1,9 @@
-from tokenize import group
-from turtle import title
-from django.test import TestCase
-
+from urllib import response
+from django.test import TestCase, Client
+from django.utils import timezone
 from django.contrib.auth.models import User
+from django.urls import reverse
+
 from .models import Group,Message
 
 class SnsTest(TestCase):
@@ -39,6 +40,16 @@ class SnsTest(TestCase):
 
   def test_check(self):
     usr = User.objects.filter(username='test').first() #テスト用のデータベースからUserのオブジェクトを取得する
+
+    #access to SNS
+    response = self.client.get(reverse('index')) #indexにアクセス、アクセス時のURLはreverse引数で生成
+    self.assertIs(response.status_code, 302) #HTTPステータスコード302(アドレスは見つかったが正常にアクセスできない)かどうかチェック→アクセスできたがログインできない状態のテスト
+
+    #login test acount and access to SNS
+    self.client.force_login(usr) #引数に指定したユーザーで強制的にログインする
+    response = self.client.get(reverse('index'))
+    self.assertIs(response.status_code, 200) #HTTPステータスコード200(正常にアクセスできている)かどうかチェック
+    self.assertContains(response, 'this is test message') #アクセスしたページに指定したテキストがページに表示されているかのチェック
 
     msg = Message.objects.filter(content='test').first()
     self.assertIs(msg.owner_id, usr.id) #msgのowner_idがusr.idと一致するかのチェク
